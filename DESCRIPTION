@@ -1,8 +1,16 @@
 Package: bmc
-Title: 
-Description: 
-Version: 0.1
-Authors@R: # getOptions('devtools.desc.author')
-Depends: R (>= 3.0.3)
-License: # getOptions('devtools.desc.license')
+Title: Search the BiomedCentral API and get full text articles.
+Description: Search the BiomedCentral API and get full text articles.
+Date: 2014-03-12
+Version: 0.0.2
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com"))
+License: MIT + file LICENSE
 LazyData: true
+Imports:
+    httr,
+    XML,
+    plyr,
+    methods,
+    stringr,
+    assertthat

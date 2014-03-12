@@ -1,4 +1,4 @@
-#' bmc
+#' bmc package
 #'
 #' @name bmc
 #' @docType package
