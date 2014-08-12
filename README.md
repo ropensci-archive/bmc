@@ -1,6 +1,8 @@
 bmc
 ---------
 
+[![Build status](https://ci.appveyor.com/api/projects/status/fitnci67m76iy0bg/branch/master)](https://ci.appveyor.com/project/sckott/bmc/branch/master)
+
 **An R interface to BMC search API and full text XML**
 
 API DOCS: [http://www.biomedcentral.com/about/api](http://www.biomedcentral.com/about/api)
@@ -9,7 +11,7 @@ No API key is required to use the BMC API.
 
 ## Quick start
 
-### Install 
+### Install
 
 ```coffee
 install.packages("devtools")
@@ -18,7 +20,7 @@ install_github("ropensci/bmc")
 library(bmc)
 ```
 
-### Search 
+### Search
 
 ```coffee
 out <- bmc_search(terms = 'fire', limit=2)
@@ -187,9 +189,9 @@ dat
 ...cutoff
 ```
 
-### Parse and search XML 
+### Parse and search XML
 
-Once you have XML content, you can go to work with e.g., xpath. 
+Once you have XML content, you can go to work with e.g., xpath.
 
 ```coffee
 uri <- 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
