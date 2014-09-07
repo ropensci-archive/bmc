@@ -1,8 +1,8 @@
 Package: bmc
 Title: Search the BiomedCentral API and get full text articles.
 Description: Search the BiomedCentral API and get full text articles.
-Date: 2014-03-12
-Version: 0.0.2
+Date: 2014-09-07
+Version: 0.0.3.99
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com"))
 License: MIT + file LICENSE
