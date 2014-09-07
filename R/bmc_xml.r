@@ -7,6 +7,7 @@
 #' @param uris (optional) A uri to a xml file of a BMC paper
 #' @param dir (optional) A directory to save to. The file extension is forced to 
 #' .xml, and the file name will be 
+#' @param raw (logical) If TRUE, returns raw text, but if FALSE, parsed XML. Default: FALSE
 #' @param ... Futher args passed on to httr::GET for debugging curl calls.
 #' @examples \dontrun{
 #' uri = 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
@@ -29,7 +30,7 @@
 #' saveXML(dat[[1]], file = 'myxml.xml')
 #' }
 
-bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL)
+bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL, raw=FALSE)
 {
   if(!is.null(obj)){ 
     assert_that(is(obj, "bmc"))
@@ -48,15 +49,19 @@ bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL)
     } else
     {
       tt <- content(res, as = "text")
-      xml <- tryCatch(xmlParse(tt), error = function(e) e, silent=TRUE)
-      if(is(xml, 'simpleError')){
-        message(sprintf('%s is not valid xml', x))
-      } else {
-        if(!is.null(dir)){
-          filedir <- paste0(dir, str_extract_all(x, "[0-9].+")[[1]], collapse = '')
-          saveXML(xml, file = filedir)
-        } else { return( xml ) }
+      
+      if(raw){ tt } else {
+        xml <- tryCatch(xmlParse(tt), error = function(e) e, silent=TRUE)
+        if(is(xml, 'simpleError')){
+          message(sprintf('%s is not valid xml', x))
+        } else {
+          if(!is.null(dir)){
+            filedir <- paste0(dir, str_extract_all(x, "[0-9].+")[[1]], collapse = '')
+            saveXML(xml, file = filedir)
+          } else { return( xml ) }
+        }
       }
+      
     }
   }
   
