@@ -3,7 +3,7 @@
 \alias{bmc_xml}
 \title{Download full text xml of a BMC paper.}
 \usage{
-bmc_xml(obj = NULL, uris = NULL, dir = NULL, raw = FALSE)
+bmc_xml(obj = NULL, uris = NULL, dir = NULL, raw = FALSE, ...)
 }
 \arguments{
 \item{obj}{(optional) An object of class bmc, from a call to \code{bmc_search}}
@@ -40,6 +40,16 @@ dat
 library(XML)
 xpathApply(dat[[1]], "//abs", xmlValue)
 saveXML(dat[[1]], file = 'myxml.xml')
+
+# curl debugging, and other parameters passed to \\code{httr::GET}
+uri = 'http://www.microbiomejournal.com/content/download/xml/2049-2618-2-7.xml'
+res <- bmc_xml(uris=uri, config=verbose())
+res <- bmc_xml(uris=uri, config=timeout(0.1))
+
+uri1 = 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
+uri2 = 'http://www.springerplus.com/content/download/xml/2193-1801-3-7.xml'
+uri3 = 'http://www.microbiomejournal.com/content/download/xml/2049-2618-2-7.xml'
+res <- bmc_xml(uris=list(uri1, uri2, uri3), config=progress())
 }
 }
 

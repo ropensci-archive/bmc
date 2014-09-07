@@ -28,9 +28,19 @@
 #' library(XML)
 #' xpathApply(dat[[1]], "//abs", xmlValue)
 #' saveXML(dat[[1]], file = 'myxml.xml')
+#' 
+#' # curl debugging, and other parameters passed to \code{httr::GET}
+#' uri = 'http://www.microbiomejournal.com/content/download/xml/2049-2618-2-7.xml'
+#' res <- bmc_xml(uris=uri, config=verbose())
+#' res <- bmc_xml(uris=uri, config=timeout(0.1))
+#' 
+#' uri1 = 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
+#' uri2 = 'http://www.springerplus.com/content/download/xml/2193-1801-3-7.xml'
+#' uri3 = 'http://www.microbiomejournal.com/content/download/xml/2049-2618-2-7.xml'
+#' res <- bmc_xml(uris=list(uri1, uri2, uri3), config=progress())
 #' }
 
-bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL, raw=FALSE)
+bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL, raw=FALSE, ...)
 {
   if(!is.null(obj)){ 
     assert_that(is(obj, "bmc"))
@@ -42,8 +52,8 @@ bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL, raw=FALSE)
     }, "")
   }
   
-  getxml <- function(x){
-    res <- GET(x)
+  getxml <- function(x, ...){
+    res <- GET(x, ...)
     if(!res$status_code == 200){
       message(sprintf('%s not found, or xml not available', x))
     } else
@@ -65,5 +75,5 @@ bmc_xml <- function(obj=NULL, uris=NULL, dir=NULL, raw=FALSE)
     }
   }
   
-  lapply(uris, getxml)
+  lapply(uris, getxml, ...)
 }
