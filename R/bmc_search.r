@@ -25,7 +25,8 @@
 #' browseURL(out@@urls[1])
 #' 
 #' # curl debugging help
-#' bmc_search(terms = 'ecology', verbose())
+#' library('httr')
+#' bmc_search(terms = 'ecology', config=verbose())
 #' }
 
 bmc_search <- function(terms, limit=10, page=1, ...)
