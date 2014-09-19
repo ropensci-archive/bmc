@@ -5,3 +5,5 @@ travis-tool.sh
 Makefile
 inst/stuff/
 ^appveyor\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$
