@@ -205,3 +205,17 @@ xpathApply(xml[[1]], "//abs", xmlValue)
 [[1]]
 [1] "AbstractBackgroundIn pregnancy, violence can have serious health consequences that could affect both mother and child. In Ghana there are limited data on this subject. We sought to assess the relationship between physical violence during pregnancy and pregnancy outcomes (early pregnancy loss, perinatal mortality and neonatal mortality) in Ghana.MethodThe 2008 Ghana Demographic and Health Survey data were used. For the domestic violence module, 2563 women were approached of whom 2442 women completed the module. After excluding missing values and applying the weight factor, 1745 women remained. Logistic regression analysis was performed to assess the relationship between physical violence in pregnancy and adverse pregnancy outcomes with adjustments for potential confounders.ResultsAbout five percent of the women experienced violence during their pregnancy. Physical violence in pregnancy was positively associated with perinatal mortality and neonatal mortality, but not with early pregnancy loss. The differences remained largely unchanged after adjustment for age, parity, education level, wealth status, marital status and place of residence: adjusted odds ratios were 2.32; 95% CI: 1.34-4.01 for perinatal mortality, 1.86; 95% CI: 1.05-3.30 for neonatal mortality and 1.16; 95% CI: 0.60-2.24 for early pregnancy loss.ConclusionOur findings suggest that violence during pregnancy is related to adverse pregnancy outcomes in Ghana. Major efforts are needed to tackle violence during pregnancy. This can be achieved through measures that are directed towards the right target groups. Measures should include education, empowerment and improving socio-economic status of women."
 ```
+
+## Meta
+
+* Please report any [issues or bugs](https://github.com/ropensci/bmc/issues).
+* License: MIT
+* Get citation information for `bmc` in R doing `citation(package = 'bmc')`
+
+---
+
+This package is part of a richer suite called [fulltext](https://github.com/ropensci/fulltext), along with several other packages, that provides the ability to search for and retrieve full text of open access scholarly articles. We recommend using `fulltext` as the primary R interface to `bmc` unless your needs are limited to this single source.
+
+---
+
+[![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
