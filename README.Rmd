@@ -1,0 +1,131 @@
+bmc
+---------
+
+```{r echo=FALSE}
+library("knitr")
+hook_output <- knitr::knit_hooks$get("output")
+knitr::knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(if (abs(lines[1])>1) more else NULL, 
+            x[lines], 
+            if (length(x)>lines[abs(length(lines))]) more else NULL
+           )
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE, 
+  message = FALSE
+)
+```
+
+[![Build Status](https://api.travis-ci.org/ropensci/bmc.png)](https://travis-ci.org/ropensci/bmc)
+[![Build status](https://ci.appveyor.com/api/projects/status/fitnci67m76iy0bg/branch/master)](https://ci.appveyor.com/project/sckott/bmc/branch/master)
+
+**An R interface to BMC search API and full text XML**
+
+API DOCS: [http://www.biomedcentral.com/about/api](http://www.biomedcentral.com/about/api)
+
+No API key is required to use the BMC API.
+
+## Install
+
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("ropensci/bmc")
+```
+
+```{r}
+library("bmc")
+```
+
+## Search
+
+```{r output.lines = 1:5}
+out <- bmc_search(terms = 'fire', limit=2)
+out@results$entries[[1]]
+```
+
+The object returned from `bmc_search` is an object of class _bmc_. The default print gives back a list of length _N_, where each element has the contents for the article in question. We can inspect further elements of the _bmc_ object with the `@` symbol. We can get the _urls_ element...
+
+```{r}
+out@urls
+```
+
+...which has the urls you can use to go the paper in a browser
+
+```{r eval=FALSE}
+browseURL(out@urls[1])
+```
+
+_which opens the paper in your default browser_
+
+We can also inspect the _ids_ element, which has a list equal to the number you requested, where each element is of length 2, with a _arxId_, and a _url_. These two are used to construct the download url if you use `bmc_xml`.
+
+```{r}
+out@ids
+```
+
+## Get full text XML
+
+You can either pass in a url to the `uris` parameter in the `bmc_xml` function, or pass in the output of the `bmc_search` function to `bmc_xml` using the first parameter `obj`. First, passing in a url:
+
+```{r output.lines = 1:10}
+uri <- 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
+bmc_xml(uris=uri)
+```
+
+Now the output from `bmc_search()`
+
+```{r}
+out <- bmc_search(terms = 'science', limit=5)
+dat <- bmc_xml(out)
+length(dat)
+```
+
+Inspect the xml
+
+```{r output.lines = 1:10}
+dat[[1]]
+```
+
+## Parse and search XML
+
+Once you have `XML` content, you can go to work with e.g., `xpath`.
+
+```{r}
+uri <- 'http://www.biomedcentral.com/content/download/xml/1471-2393-14-71.xml'
+xml <- bmc_xml(uris=uri)
+library("XML")
+xpathApply(xml[[1]], "//abs", xmlValue)
+```
+
+## Meta
+
+* Please [report any issues or bugs](https://github.com/ropensci/bmc/issues).
+* License: MIT
+* Get citation information for `bmc` in R doing `citation(package = 'bmc')`
+
+---
+
+This package is part of a richer suite called [fulltext](https://github.com/ropensci/fulltext), along with several other packages, that provides the ability to search for and retrieve full text of open access scholarly articles. We recommend using `fulltext` as the primary R interface to `bmc` unless your needs are limited to this single source.
+
+---
+
+[![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
