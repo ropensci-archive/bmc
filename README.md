@@ -5,6 +5,7 @@ bmc
 
 [![Build Status](https://api.travis-ci.org/ropensci/bmc.png)](https://travis-ci.org/ropensci/bmc)
 [![Build status](https://ci.appveyor.com/api/projects/status/fitnci67m76iy0bg/branch/master)](https://ci.appveyor.com/project/sckott/bmc/branch/master)
+[![codecov.io](https://codecov.io/github/ropensci/bmc/coverage.svg?branch=master)](https://codecov.io/github/ropensci/bmc?branch=master)
 
 **An R interface to BMC search API and full text XML**
 
